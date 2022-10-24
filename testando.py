@@ -15,7 +15,28 @@ class Test:
         return lista_fizz_buzz
 
     def snake_to_camel(self, data: dict) -> dict:
-        ...
+        camelCase = ''
+        aux = 0
+        for i in data:
+            
+            for j in i:
+                if(j != "_"):
+                    if(aux == 0):
+                        camelCase+=j
+                    if(aux == 1):
+                        camelCase+=j.upper()
+                        aux = 0
+                if(j == "_"):            
+                    aux = 1
+            camelCase+=" "
+
+        new_camelCase = camelCase.split(" ")
+        new_data = {}
+        aux = 0
+        for i in data:
+            new_data.update({new_camelCase[aux]:data.get(i)})
+            aux+=1
+        return new_data
         
     def get_omdb_movie(self, title: str) -> Tuple[int, dict]:
         movie = requests.get(f"http://www.omdbapi.com/?i=tt3896198&apikey=3b4f80b9&t={title}".replace(" ","+"))
